@@ -1,0 +1,65 @@
+---
+const { pathname } = Astro.url;
+---
+
+<aside class="sidebar">
+    <h2>Índice</h2>
+    <nav>
+        <ul>
+            <li>
+                <a id="1" href="/" class={pathname === "/" ? "active" : ""}
+                    >Início</a
+                >
+            </li>
+            <li>
+                <a
+                    id="2"
+                    href="/blog/"
+                    class={pathname.startsWith("/blog") ? "active" : ""}>Blog</a
+                >
+            </li>
+            <li>
+                <a
+                    id="3"
+                    href="/projetos/"
+                    class={pathname.startsWith("/projetos") ? "active" : ""}
+                    >Projetos</a
+                >
+            </li>
+        </ul>
+    </nav>
+</aside>
+<style>
+    .sidebar {
+        background-color: #f0f0f0;
+        padding: 1rem;
+    }
+
+    .sidebar h2 {
+        margin-top: 0;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .sidebar li {
+        margin-bottom: 0.5rem;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .sidebar a:hover {
+        text-decoration: underline;
+        color: darkblue;
+    }
+
+    .sidebar a.active {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+</style>
