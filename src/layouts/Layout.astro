@@ -1,15 +1,23 @@
-<!doctype html>
-<html lang="en">
+---
+import SideBar from "../components/SideBar.astro";
+---
+
+<html lang="pt-BR">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>A Caverna farol</title>
 	</head>
 	<body>
-		<slot />
+		<div class="page-container">
+			<SideBar />
+			<main class="main-content">
+				<slot />
+			</main>
+		</div>
 	</body>
 </html>
 
@@ -19,5 +27,24 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+	.page-container {
+		display: flex;
+		gap: 2rem;
+		height: 100%;
+		/* Espaçamento entre o menu e o conteúdo */
+	}
+
+	.sidebar {
+		flex: 250px; /* O menu lateral não cresce, não encolhe e tem 250px de largura */
+	}
+
+	.sidebar ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.main-content {
+		flex: 1; /* Ocupa o espaço restante */
 	}
 </style>
