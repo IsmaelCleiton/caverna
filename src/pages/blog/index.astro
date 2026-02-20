@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+const posts = await getCollection("blog");
+console.log(posts);
+---
+
+<Layout>
+    <div class="blog-container">
+        <h1>Blog</h1>
+        <ul class="post-list">
+            {
+                posts.map((post: any) => (
+                    <li>
+                        <a href={`/blog/${post.data.slug}`}>
+                            {post.data.title}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</Layout>
+
+<style>
+    .post-list {
+        list-style: none;
+        padding: 0;
+    }
+    .post-list li {
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1rem;
+    }
+    .post-list a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .post-list a:hover h3 {
+        color: darkblue;
+        text-decoration: underline;
+    }
+    .post-list h3 {
+        margin-bottom: 0.5rem;
+    }
+    .post-list p {
+        margin: 0.5rem 0;
+        color: #444;
+    }
+    .post-list small {
+        color: #888;
+    }
+</style>
