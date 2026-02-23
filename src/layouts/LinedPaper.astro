@@ -1,0 +1,27 @@
+---
+
+---
+
+<div class="lined-paper">
+    <slot />
+</div>
+
+<style>
+    .lined-paper {
+        max-width: 800px;
+        background-color: #f0f0f0;
+        background-image: linear-gradient(
+            to bottom,
+            transparent calc(1.8em - 1px),
+            #e0e0e0 calc(1.8em - 1px),
+            #e0e0e0 1.8em
+        );
+        background-size: 100% 1.8em;
+        padding: 40px;
+        border-left: 3px solid #e91e63;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.8em;
+        min-height: 100vh;
+    }
+</style>

@@ -1,0 +1,357 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LinedPaper from "../layouts/LinedPaper.astro";
+
+// Bloqueia acesso à página em produção
+if (!import.meta.env.DEV) {
+    return Astro.redirect("/");
+}
+---
+
+<Layout title="Criar Novo Post">
+    <div class="admin-container">
+        <header>
+            <h1>Criar Novo Post</h1>
+            <button id="saveBtn" class="btn-save">Salvar Post</button>
+        </header>
+
+        <div class="meta-form">
+            <div class="form-group">
+                <label>Título</label>
+                <input type="text" id="title" placeholder="Título do Post" />
+            </div>
+
+            <div class="form-group">
+                <label>Slug (URL)</label>
+                <input type="text" id="slug" placeholder="meu-post-incrivel" />
+            </div>
+
+            <div class="form-group">
+                <label>Descrição</label>
+                <input
+                    type="text"
+                    id="description"
+                    placeholder="Breve descrição..."
+                />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Autor</label>
+                    <input type="text" id="author" value="Ismael Cleiton" />
+                </div>
+                <div class="form-group">
+                    <label>Data</label>
+                    <input type="date" id="date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-area">
+            <div class="editor-pane">
+                <div class="editor-head">
+                    <h3>Editor Markdown</h3>
+                    <div class="editor-actions"></div>
+                </div>
+                <textarea
+                    id="content"
+                    placeholder="Escreva seu conteúdo aqui..."></textarea>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<!-- Dependências do editor Markdown (EasyMDE) e renderer -->
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css"
+/>
+<script is:inline src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"
+></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"
+></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com" />
+
+<script>
+    const dateValue = new Date();
+    const dateInput = document.getElementById("date") as HTMLInputElement;
+    dateInput.valueAsDate = dateValue;
+
+    const titleInput = document.getElementById("title") as HTMLInputElement;
+    const slugInput = document.getElementById("slug") as HTMLInputElement;
+    // Inicializa EasyMDE no textarea
+    // @ts-ignore
+    const easyMDE = new EasyMDE({
+        element: document.getElementById("content"),
+        //previewClass: "markdown-body",
+        spellChecker: true,
+        autofocus: true,
+        autosave: { enabled: false },
+        placeholder: "Escreva seu conteúdo aqui...",
+        renderingConfig: {
+            singleLineBreaks: true,
+            codeSyntaxHighlighting: true,
+        },
+        showIcons: ["code", "table", "horizontal-rule"],
+        status: ["lines", "words", "cursor"],
+    });
+
+    const previewDiv = document.getElementById("preview");
+
+    titleInput.addEventListener("input", () => {
+        const slug = titleInput.value
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9\s-]/g, "")
+            .trim()
+            .replace(/\s+/g, "-");
+        slugInput.value = slug;
+    });
+
+    document.getElementById("saveBtn")?.addEventListener("click", async () => {
+        console.log("Salvando post...", dateValue);
+        const postData = {
+            title: titleInput.value,
+            slug: slugInput.value,
+            description: (
+                document.getElementById("description") as HTMLInputElement
+            ).value,
+            author: (document.getElementById("author") as HTMLInputElement)
+                .value,
+            content: easyMDE.value(),
+            pubDate: dateValue.toISOString(),
+        };
+
+        try {
+            const response = await fetch("/api/save-post", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(postData),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("✅ Post salvo com sucesso!");
+                window.location.href = `/blog/${postData.slug}`;
+            } else {
+                alert("❌ Erro: " + result.message);
+            }
+        } catch (err) {
+            alert("Erro de conexão ao salvar.");
+        }
+    });
+</script>
+
+<style>
+    .admin-container {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 1.25rem;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #222;
+    }
+
+    .btn-save {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 0.65rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 700;
+        box-shadow: 0 6px 18px rgba(39, 174, 96, 0.18);
+        transition:
+            transform 0.12s ease,
+            box-shadow 0.12s ease,
+            opacity 0.12s;
+    }
+
+    .btn-save:active {
+        transform: translateY(1px);
+    }
+    .btn-save:hover {
+        box-shadow: 0 10px 28px rgba(39, 174, 96, 0.22);
+    }
+
+    .meta-form {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.9),
+            rgba(250, 250, 250, 0.9)
+        );
+        padding: 1.25rem;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    input,
+    textarea {
+        padding: 0.8rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: white;
+        outline: none;
+        transition:
+            box-shadow 0.12s ease,
+            border-color 0.12s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+        box-shadow: 0 6px 18px rgba(25, 118, 210, 0.08);
+        border-color: #1976d2;
+    }
+
+    .editor-area {
+        min-height: 520px;
+    }
+
+    .editor-pane {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.95),
+            rgba(250, 250, 250, 0.95)
+        );
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        padding: 1rem;
+    }
+    .preview-pane {
+        display: none;
+        flex-direction: column;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.95),
+            rgba(250, 250, 250, 0.95)
+        );
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        padding: 1rem;
+    }
+
+    .editor-pane h3,
+    .preview-pane h3 {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.05rem;
+        color: #333;
+    }
+
+    textarea {
+        flex: 1;
+        font-family:
+            ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+            "Segoe UI Mono", monospace;
+        resize: none;
+        border-radius: 6px;
+        padding: 0.9rem;
+        line-height: 1.6;
+    }
+
+    #preview {
+        flex: 1;
+        border-radius: 6px;
+        padding: 1rem;
+        overflow-y: auto;
+        background: white;
+    }
+
+    /* EasyMDE adjustments */
+    .editor-pane .CodeMirror {
+        height: 360px;
+        border-radius: 6px;
+    }
+    .editor-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+    .editor-actions {
+        display: flex;
+        gap: 0.8rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    /* Markdown body small tweaks */
+    .markdown-body p {
+        color: #333;
+        line-height: 1.6;
+        margin: 0 0 0.85rem 0;
+    }
+    .markdown-body pre {
+        background: #0b1220;
+        color: #e6eef8;
+        padding: 0.75rem;
+        border-radius: 6px;
+        overflow: auto;
+    }
+    .markdown-body code {
+        background: rgba(0, 0, 0, 0.04);
+        padding: 0.15rem 0.35rem;
+        border-radius: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .editor-area {
+            grid-template-columns: 1fr;
+            height: auto;
+            min-height: 420px;
+        }
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .btn-save {
+            width: 100%;
+        }
+    }
+</style>

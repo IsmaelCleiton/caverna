@@ -6,6 +6,7 @@ dist/
 
 # dependencies
 node_modules/
+pkg/
 
 # logs
 npm-debug.log*
@@ -24,4 +25,4 @@ pnpm-debug.log*
 .idea/
 
 # Content collections
-src/content/blog/*.md
+.src/content/blog/*.md

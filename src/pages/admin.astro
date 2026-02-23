@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LinedPaper from "../layouts/LinedPaper.astro";
+---
+
+<Layout title="Admin">
+    <LinedPaper>
+        <div>
+            <h1>Admin</h1>
+            <p>
+                Bem-vindo à área administrativa! Aqui você pode criar, editar e
+                gerenciar seus posts.
+            </p>
+            <div>
+                <h2>Gerenciador de post</h2>
+                <div class="button-box">
+                    <button
+                        class="btn-create"
+                        onclick="window.location.href='/create-post-page'"
+                        >Criar Novo Post</button
+                    >
+                </div>
+            </div>
+        </div>
+    </LinedPaper>
+</Layout>

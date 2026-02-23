@@ -1,53 +1,126 @@
 ---
+import { countReset } from "node:console";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import LinedPaper from "../../layouts/LinedPaper.astro";
 const posts = await getCollection("blog");
-console.log(posts);
+var i = 0;
+
+function count() {
+    i++;
+    return i;
+}
 ---
 
 <Layout>
-    <div class="blog-container">
-        <h1>Blog</h1>
-        <ul class="post-list">
-            {
-                posts.map((post: any) => (
-                    <li>
-                        <a href={`/blog/${post.data.slug}`}>
-                            {post.data.title}
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
+    <LinedPaper>
+        <div class="blog-container">
+            <h1>Blog</h1>
+            <ul class="post-list">
+                {
+                    posts.map((post: any) => (
+                        <li>
+                            <div class="post-tile">
+                                <div class="post-title">
+                                    <a href={`/blog/${post.data.slug}`}>
+                                        <h3>
+                                            {count()} - {post.data.title}
+                                        </h3>
+                                    </a>
+                                    <small>
+                                        Publicado em:{" "}
+                                        {new Date(
+                                            post.data.pubDate,
+                                        ).toLocaleDateString("pt-BR", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric",
+                                        })}
+                                    </small>
+                                </div>
+                            </div>
+                            <p class="description">{post.data.description}</p>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </LinedPaper>
 </Layout>
 
 <style>
+    .blog-container h1 {
+        border-bottom: 2px solid #333;
+        padding-bottom: 0.5rem;
+        margin-top: 0;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: #333;
+    }
+
     .post-list {
         list-style: none;
         padding: 0;
+        margin: 0;
     }
+
     .post-list li {
-        margin-bottom: 2rem;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        background-color: #f0f0f000;
     }
+
+    .post-tile {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+        border-left: 3px solid #333;
+        background-color: #f0f0f000;
+        transition: all 0.3s ease;
+    }
+
+    .post-tile:hover {
+        background: rgba(0, 0, 0, 0.1);
+        transform: translateX(2px);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
     .post-list a {
         text-decoration: none;
         color: inherit;
+        flex: 1;
     }
+
+    .post-list h3 {
+        font-weight: 500;
+        margin: 0;
+        color: #333;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+    }
+
     .post-list a:hover h3 {
-        color: darkblue;
+        color: #1565c0;
         text-decoration: underline;
     }
-    .post-list h3 {
-        margin-bottom: 0.5rem;
-    }
-    .post-list p {
-        margin: 0.5rem 0;
-        color: #444;
-    }
+
     .post-list small {
-        color: #888;
+        color: #999;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .description {
+        margin: 0;
+        color: #555;
+        line-height: 1.5;
+        font-size: 0.95rem;
     }
 </style>

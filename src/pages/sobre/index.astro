@@ -1,0 +1,246 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LinedPaper from "../../layouts/LinedPaper.astro";
+---
+
+<Layout>
+    <LinedPaper>
+        <div class="about-container">
+            <h1>Sobre</h1>
+
+            <section class="about-section">
+                <h2>Sobre Mim</h2>
+                <div class="card">
+                    <h3>Ismael Cleiton</h3>
+                    <p class="subtitle">
+                        Desenvolvedor Full Stack & Admirador da existência
+                    </p>
+                    <p>
+                        Me descrever é um desafio, sou um cara curioso, gosto de
+                        aprender coisas novas e explorar as possibilidades que
+                        esses novos conhecimentos me trazem. Escrevo código, mas
+                        também escrevo histórias, poemas e algumas reflexões
+                        sobre o mundo e a alma humana. Sou um cara sonhador
+                        minha mente não para de pensar infelizmente, já que isso
+                        me traz alguns problemas de atenção mas também me faz
+                        ser criativo e ter uma visão ampla das coisas. De vez em
+                        quando estou me pego estudando uma tecnologia que nunca
+                        vou usar procurando entender como ela funciona, ou
+                        estudando assuntos aleatórios de outras areas de
+                        conhecimentos. Com esse site vou tentar compartilhar um
+                        pouco do que eu aprendo e focar em escrever para que
+                        minha mente pare de pensar tanto e eu consiga me
+                        concentrar nas coisas mais importantes.
+                    </p>
+                    <p>
+                        Falei das coisas que gosto mas isso ainda não é
+                        suficiente para me descrever, então acredito que para me
+                        conhecer melhor você vai precisar ler meus textos, até
+                        por que eu mesmo não me conheço tão bem assim XD.
+                    </p>
+
+                    <div class="skills">
+                        <h4>Habilidades Principais</h4>
+                        <ul>
+                            <li>JavaScript / TypeScript</li>
+                            <li>React & Astro</li>
+                            <li>Node.js</li>
+                            <li>Banco de Dados (SQL & NoSQL)</li>
+                            <li>Design Responsivo</li>
+                            <li>API REST</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>Sobre este Projeto</h2>
+                <div class="card">
+                    <h3>Caverna 📚</h3>
+                    <p class="subtitle">
+                        Um espaço para materializar minhas ideais, aspirações e
+                        estudos.
+                    </p>
+                    <p>
+                        Este projeto foi criado para que eu possa focar em
+                        produzir algo concreto para conseguir me concentrar e
+                        organizar melhor meus pensamentos, ideias e estudos. A
+                        ideia é que aqui eu possa compartilhar um pouco do que
+                        eu aprendo. O nome Studium ainda é provisório, mas tem
+                        um significado legal, é uma palavra em latim que
+                        significa "estudo" e tras uma ideia de que é um lugar
+                        para ser fazer coisas porque parece com a palavra
+                        estúdio que é onde os artistas trabalham em suas obras.
+                    </p>
+
+                    <div class="project-details">
+                        <h4>Características</h4>
+                        <ul>
+                            <li>📝 Blog com suporte a Markdown</li>
+                            <li>🎨 Design responsivo e moderno</li>
+                            <li>⚡ Performance otimizada com Astro</li>
+                            <li>📖 Conteúdo técnico e artístico</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h4>Tecnologias Utilizadas</h4>
+                        <div class="tech-list">
+                            <span class="tech-tag">Astro</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Markdown</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2>Conecte-se Comigo</h2>
+                <div class="card">
+                    <p>Você pode me encontrar nos seguintes lugares:</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </LinedPaper>
+</Layout>
+
+<style>
+    /* Estilo de folha de caderno */
+
+    .about-container h1 {
+        border-bottom: 2px solid #333;
+        padding-bottom: 0.5rem;
+        margin-top: 0;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .about-section {
+        margin-bottom: 2rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.5rem;
+        color: #1976d2;
+        border-left: 3px solid #2196f3;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.7);
+        border-left: 3px solid #2196f3;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transform: translateX(2px);
+    }
+
+    .card h3 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        color: #2196f3;
+        font-style: italic;
+        margin: 0 0 1rem 0;
+        font-size: 0.95rem;
+    }
+
+    .card p {
+        margin: 0.8rem 0;
+        color: #555;
+        line-height: 1.8;
+    }
+
+    .skills,
+    .project-details,
+    .tech-stack {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .skills h4,
+    .project-details h4,
+    .tech-stack h4 {
+        color: #1976d2;
+        margin: 0 0 0.8rem 0;
+        font-size: 1rem;
+    }
+
+    .skills ul,
+    .project-details ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .skills li,
+    .project-details li {
+        padding: 0.4rem 0;
+        color: #555;
+    }
+
+    .skills li:before,
+    .project-details li:before {
+        content: "✓ ";
+        color: #2196f3;
+        font-weight: bold;
+        margin-right: 0.5rem;
+    }
+
+    .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .tech-tag {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .social-link {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        background: #2196f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .social-link:hover {
+        background: #1976d2;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+    }
+</style>
