@@ -1,5 +1,6 @@
 ---
 import SideBar from "../components/SideBar.astro";
+const { title } = Astro.props;
 ---
 
 <html lang="pt-BR">
@@ -9,7 +10,7 @@ import SideBar from "../components/SideBar.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>A Caverna farol</title>
+		<title>{title || "Studium"}</title>
 	</head>
 	<body>
 		<div class="page-container">
