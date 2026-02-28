@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 # Content collections
 .src/content/blog/*.md
+.src/content/blog/*.mdx
