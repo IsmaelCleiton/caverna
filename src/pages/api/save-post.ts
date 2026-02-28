@@ -37,7 +37,8 @@ ${content}
             fs.mkdirSync(targetDir, { recursive: true });
         }
 
-        const filePath = path.join(targetDir, `${slug}.md`);
+        const safeSlug = slug.replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+        const filePath = path.join(targetDir, `${safeSlug}.md`);
 
 
         fs.writeFileSync(filePath, fileContent, 'utf-8');
