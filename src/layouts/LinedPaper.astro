@@ -5,22 +5,3 @@
 <div class="lined-paper">
     <slot />
 </div>
-
-<style>
-    .lined-paper {
-        background-color: #f0f0f0;
-        background-image: linear-gradient(
-            to bottom,
-            transparent calc(1.8em - 1px),
-            #e0e0e0 calc(1.8em - 1px),
-            #e0e0e0 1.8em
-        );
-        background-size: 100% 1.8em;
-        padding: 40px;
-        margin: auto 2rem;
-        border-left: 5px solid #333;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        line-height: 1.8em;
-        min-height: 100vh;
-    }
-</style>

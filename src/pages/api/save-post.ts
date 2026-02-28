@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
         const data = await request.json();
-        const { title, description, author, slug, content, pubDate } = data;
+        const { title, description, author, slug, content, pubDate, tags } = data;
 
         if (!title || !slug || !content) {
             return new Response(JSON.stringify({ message: 'Campos obrigatórios faltando.' }), { status: 400 });
@@ -26,6 +26,7 @@ description: '${description.replace(/'/g, "''")}'
 pubDate: '${pubDate}'
 author: '${author || 'Ismael Cleiton'}'
 slug: '${slug}'
+tags: ${JSON.stringify(tags || [])}
 ---
 
 ${content}

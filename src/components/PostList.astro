@@ -20,6 +20,17 @@ const { posts } = Astro.props;
                     </small>
                     <div class="post-title">
                         <h3>{post.data.title}</h3>
+                        <div>
+                            {post.data.tags && post.data.tags.length > 0 && (
+                                <div class="tags-container">
+                                    {post.data.tags.map((tag: string) => (
+                                        <div class="post-tag">
+                                            <small class="tag">{tag}</small>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <p class="description">{post.data.description}</p>
                     <a href={`/blog/${post.data.slug}`}>Ler mais...</a>

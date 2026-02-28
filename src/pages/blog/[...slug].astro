@@ -21,6 +21,19 @@ const { Content } = await render(post);
     <LinedPaper>
         <article>
             <h1>{post.data.title}</h1>
+            <div>
+                {
+                    post.data.tags && post.data.tags.length > 0 && (
+                        <div class="tags-container">
+                            {post.data.tags.map((tag: string) => (
+                                <div class="post-tag">
+                                    <small class="tag">{tag}</small>
+                                </div>
+                            ))}
+                        </div>
+                    )
+                }
+            </div>
             <p class="date">
                 Publicado em: {
                     new Date(post.data.pubDate).toLocaleDateString("pt-BR", {

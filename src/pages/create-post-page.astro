@@ -35,6 +35,15 @@ if (!import.meta.env.DEV) {
                 />
             </div>
 
+            <div class="form-group">
+                <label>Tags (separadas por vírgula)</label>
+                <input
+                    type="text"
+                    id="tags"
+                    placeholder="ex: tecnologia, astro, tutorial"
+                />
+            </div>
+
             <div class="form-row">
                 <div class="form-group">
                     <label>Autor</label>
@@ -115,6 +124,13 @@ if (!import.meta.env.DEV) {
 
     document.getElementById("saveBtn")?.addEventListener("click", async () => {
         console.log("Salvando post...", dateValue);
+
+        const tagsInput = document.getElementById("tags") as HTMLInputElement;
+        const tags = tagsInput.value
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0);
+
         const postData = {
             title: titleInput.value,
             slug: slugInput.value,
@@ -125,6 +141,7 @@ if (!import.meta.env.DEV) {
                 .value,
             content: easyMDE.value(),
             pubDate: dateValue.toISOString(),
+            tags: tags,
         };
 
         try {
