@@ -25,5 +25,6 @@ pnpm-debug.log*
 .idea/
 
 # Content collections
-.src/content/blog/*.md
-.src/content/blog/*.mdx
+src/content/blog/*.md
+src/content/blog/*.mdx
+
